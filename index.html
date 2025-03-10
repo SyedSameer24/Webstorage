@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Storage API</title>
+   <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Web-Storage</h1>
+        <div class="box">
+            <p>
+                This example is made to demonstrate usage of the Web Storage API. Choose custom background colours,
+                logos, and fonts, and see them remembered even after refreshing.
+            </p>
+
+            <form>
+                <div class="options">
+                    <label for="bgcolor">Choose the background colour:</label>
+                    <input class="color"   type="text" id="bgcolor" value="#FF0000">
+
+                    <label for="font">Choose the font-family:</label>
+                    <select id="font">
+                        <option value="sans-serif" selected>Sans-serif</option>
+                        <option value="serif">Serif</option>
+                        <option value="monospace">Monospace</option>
+                        <option value="Arial">Arial</option>
+                        <option value="Verdana">Verdana</option>
+                        <option value="Tahoma">Tahoma</option>
+                        <option value="Trebuchet MS">Trebuchet MS</option>
+                        <option value="Georgia">Georgia</option>
+                        <option value="Times New Roman">Times New Roman</option>
+                        <option value="Courier New">Courier New</option>
+                        <option value="Lucida Console">Lucida Console</option>
+                        <option value="Garamond">Garamond</option>
+                        <option value="Palatino">Palatino</option>
+
+                    </select>
+
+                    <label for="image">Choose the logo:</label>
+                    <select id="image">
+                        <option value="lion-png-42271.png" selected>Lion</option>
+                        <option value="580b57fbd9996e24bc43bcef.png">Squirrel</option>
+                        <option value="png-hd-dogs-animal-1024.png">Dog</option>
+                        <option value="download__1___1_-removebg-preview.png">Cat</option>
+                        <option value="download__4_-removebg-preview.png">Fish</option>
+                    </select>
+                </div>
+            </form>
+
+            <footer></footer>
+            <img src="lion-png-42271.png" alt="Lion">
+        </div>
+    </div>
+
+    <script>
+        const he = document.querySelector("html");
+        const pe = document.querySelector("p");
+        const ie = document.querySelector("img");
+
+        const bgf = document.getElementById("bgcolor");
+        const ff = document.getElementById("font");
+        const imf = document.getElementById("image");
+
+        // Initialize storage if not already set
+        if (!localStorage.getItem("bgcolor")) {
+            populateStorage();
+        } else {
+            setStyle();
+        }
+
+        // Populate local storage with current selections
+        function populateStorage() {
+            localStorage.setItem("bgcolor", bgf.value);
+            localStorage.setItem("font", ff.value);
+            localStorage.setItem("image", imf.value);
+            setStyle();
+        }
+
+        // Apply styles from local storage
+        function setStyle() {
+            const currentColor = localStorage.getItem("bgcolor");
+            const currentFont = localStorage.getItem("font");
+            const currentImage = localStorage.getItem("image");
+
+            // Set input values from local storage
+            bgf.value = currentColor;
+            ff.value = currentFont;
+            imf.value = currentImage;
+
+            // Apply styles directly
+            he.style.backgroundColor = currentColor;
+            pe.style.fontFamily = currentFont;
+
+            // Update the image source if it's valid
+            if (currentImage) {
+                ie.setAttribute("src", currentImage);
+            }
+        }
+
+        // Event listeners for changes
+        bgf.addEventListener('change', populateStorage);
+        ff.addEventListener('change', populateStorage);
+        imf.addEventListener('change', populateStorage);
+
+    </script>
+    
+</body>
+
+</html>
