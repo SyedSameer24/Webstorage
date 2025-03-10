@@ -65,14 +65,14 @@
         const ff = document.getElementById("font");
         const imf = document.getElementById("image");
 
-        // Initialize storage if not already set
+  
         if (!localStorage.getItem("bgcolor")) {
             populateStorage();
         } else {
             setStyle();
         }
 
-        // Populate local storage with current selections
+      
         function populateStorage() {
             localStorage.setItem("bgcolor", bgf.value);
             localStorage.setItem("font", ff.value);
@@ -80,28 +80,27 @@
             setStyle();
         }
 
-        // Apply styles from local storage
+
         function setStyle() {
             const currentColor = localStorage.getItem("bgcolor");
             const currentFont = localStorage.getItem("font");
             const currentImage = localStorage.getItem("image");
 
-            // Set input values from local storage
+
             bgf.value = currentColor;
             ff.value = currentFont;
             imf.value = currentImage;
 
-            // Apply styles directly
+   
             he.style.backgroundColor = currentColor;
             pe.style.fontFamily = currentFont;
 
-            // Update the image source if it's valid
+
             if (currentImage) {
                 ie.setAttribute("src", currentImage);
             }
         }
 
-        // Event listeners for changes
         bgf.addEventListener('change', populateStorage);
         ff.addEventListener('change', populateStorage);
         imf.addEventListener('change', populateStorage);
